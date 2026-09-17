@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segunda Vuelta - Tienda</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        header {
+            background: #91d7ec;
+            color: white;
+            text-align: center;
+        }
+
+        .encabezado1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .encabezado1 img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .encabezado1 h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .encabezado2 {
+            display: flex;
+            justify-content: center;
+            background-color: #0088cc;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .encabezado2 a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .encabezado2 a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .encabezado2 a.activo {
+            color: white;
+        }
+
+        .btn-carrito-nav {
+            background-color: #ff9800;
+            border-radius: 20px !important;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: #7bcbe0;
+        }
+
+        /* BOTONES DE REDES Y MERCADO PAGO */
+
+        .link-btn {
+            border: none;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .whatsapp {
+            background: #25d366;
+        }
+
+        .whatsapp:hover {
+            background: #1ebe5d;
+        }
+
+        .mercadopago {
+            background: #00a9e0;
+        }
+
+        .mercadopago:hover {
+            background: #008fc1;
+        }
+
+        .instagram {
+            background: #e1306c;
+        }
+
+        .instagram:hover {
+            background: #c7255c;
+        }
+
+
+        .productos {
+            width: 800px;
+            max-width: calc(100% - 30px);
+            margin: 21px auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.18);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 164px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 10px 11px 11px;
+        }
+
+        .card h2 {
+            font-size: 13px;
+            margin: 0 0 4px;
+        }
+
+        .card p {
+            font-size: 11px;
+            line-height: 1.15;
+            height: 37px;
+            margin: 0 0 8px;
+            color: #444;
+        }
+
+        .precio {
+            color: #ebb1e6;
+            font-weight: bold;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .carrito {
+            width: 100%;
+            border: none;
+            background: #ebb1e6;
+            color: white;
+            font-weight: bold;
+            font-size: 11px;
+            padding: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        .carrito:hover {
+            background: #c080bb;
+        }
+
+        .carrito.agregado {
+            background: #4CAF50 !important;
+        }
+
+        .carrito.repetido {
+            background: #ff9800 !important;
+        }
+
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .lista-carrito {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+
+        .item-carrito {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        .item-carrito button {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 6px;
+            cursor: pointer;
+        }
+
+        .total-carrito {
+            font-weight: bold;
+            text-align: right;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        .acciones-modal {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-cerrar {
+            background: #888;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-vaciar {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+
+        @media (max-width: 850px) {
+            .productos {
+                width: 600px;
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 620px) {
+
+            .encabezado1 {
+                flex-direction: column;
+            }
+
+            .encabezado2 {
+                flex-wrap: wrap;
+            }
+
+            .links {
+                flex-wrap: wrap;
+            }
+
+            .productos {
+                width: 400px;
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 430px) {
+
+            .productos {
+                width: 100%;
+                max-width: calc(100% - 20px);
+                grid-template-columns: 1fr;
+            }
+
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .link-btn {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+
+        <div class="encabezado1">
+            <img src="logo.png" alt="Logo Segunda Vuelta">
+            <h1>Segunda Vuelta</h1>
+        </div>
+
+
+        <div class="encabezado2">
+            <a href="inicio.html" class="activo">Inicio</a>
+            <a href="productos.html">Productos</a>
+
+            <a id="btn-ver-carrito" class="btn-carrito-nav">
+                🛒 Carrito (<span id="contador-carrito">0</span>)
+            </a>
+        </div>
+
+
+        <div class="links">
+
+            <a
+                class="link-btn whatsapp"
+                href="https://whatsapp.com/channel/0029VbDHGDuDOQIaMed80A35"
+                target="_blank"
+                rel="noopener noreferrer">
+                Mandanos un Whatsapp
+            </a>
+
+            <a
+                class="link-btn mercadopago"
+                href="#">
+                Link de Mercado Pago
+            </a>
+
+            <a
+                class="link-btn instagram"
+                href="https://www.instagram.com/segunda_vuelta.cr?stkn=MXZrNWZzYWVpcmZvOQ=="
+                target="_blank"
+                rel="noopener noreferrer">
+                Seguinos en Instagram
+            </a>
+
+        </div>
+
+    </header>
+
+    <main class="productos">
+
+        <article class="card">
+            <img src="https://i.pinimg.com/474x/19/21/51/192151137b4c86bfb19d057f4572dfa7.jpg" alt="Algo">
+
+            <div class="card-content">
+                <h2>Algo</h2>
+                <p>67676767676767676767.</p>
+
+                <div class="precio">$67.500</div>
+
+                <button class="carrito" type="button">
+                    Agregar al carrito
+                </button>
+            </div>
+        </article>
+
+
+        <article class="card">
+            <img src="https://i.pinimg.com/474x/b0/c6/ef/b0c6ef573809bb05afaa4ee6742cb179.jpg"
+                alt="Conejo de peluche">
+
+            <div class="card-content">
+                <h2>Conejo</h2>
+                <p>Conejonoze.</p>
+
+                <div class="precio">$7.900</div>
+
+                <button class="carrito" type="button">
+                    Agregar al carrito
+                </button>
+            </div>
+        </article>
+
+
+        <article class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhBKcKUjjBsAmtHaYTy1b9j0rqxcCwN6P16R_qq54Jvg&s=10"
+                alt="Perrito de peluche">
+
+            <div class="card-content">
+                <h2>Perri</h2>
+                <p>Perrito si</p>
+
+                <div class="precio">$9.200</div>
+
+                <button class="carrito" type="button">
+                    Agregar al carrito
+                </button>
+            </div>
+        </article>
+
+
+        <article class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoeoxFj8vK6by9vIw251aXfYc5AOkWSdwEIS9z6HXUmQ&s=10"
+                alt="Gatito de peluche">
+
+            <div class="card-content">
+                <h2>Gatito</h2>
+                <p>Gatito de peluche</p>
+
+                <div class="precio">$8.100</div>
+
+                <button class="carrito" type="button">
+                    Agregar al carrito
+                </button>
+            </div>
+        </article>
+
+    </main>
+
+
+
+    <div class="modal-overlay" id="modal-carrito">
+
+        <div class="modal-content">
+
+            <h2>Tu Carrito de Compras</h2>
+
+            <ul class="lista-carrito" id="lista-carrito">
+                <!-- Se llena con JavaScript -->
+            </ul>
+
+            <div class="total-carrito" id="total-carrito">
+                Total: $0
+            </div>
+
+            <div class="acciones-modal">
+
+                <button class="btn-vaciar" id="btn-vaciar">
+                    Vaciar
+                </button>
+
+                <button class="btn-cerrar" id="btn-cerrar">
+                    Cerrar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        let carrito = [];
+
+
+        const botonesAgregar = document.querySelectorAll('.carrito');
+        const contadorSpan = document.getElementById('contador-carrito');
+        const modal = document.getElementById('modal-carrito');
+        const btnVerCarrito = document.getElementById('btn-ver-carrito');
+        const btnCerrar = document.getElementById('btn-cerrar');
+        const btnVaciar = document.getElementById('btn-vaciar');
+        const listaCarrito = document.getElementById('lista-carrito');
+        const totalSpan = document.getElementById('total-carrito');
+
+
+
+        function obtenerPrecioNumero(precioTexto) {
+
+            return parseFloat(
+                precioTexto
+                    .replace('$', '')
+                    .replace('.', '')
+                    .trim()
+            );
+
+        }
+
+
+
+        function formatearPrecio(numero) {
+
+            return '$' + numero.toLocaleString('es-AR');
+
+        }
+
+
+
+        botonesAgregar.forEach((boton) => {
+
+            boton.addEventListener('click', (e) => {
+
+                const card = e.target.closest('.card');
+
+                const nombre = card.querySelector('h2').textContent;
+
+                const precioTexto =
+                    card.querySelector('.precio').textContent;
+
+                const precio =
+                    obtenerPrecioNumero(precioTexto);
+
+
+                const existe =
+                    carrito.some(item => item.nombre === nombre);
+
+
+                if (existe) {
+
+                    boton.textContent =
+                        '¡Ya en el carrito!';
+
+                    boton.classList.add('repetido');
+
+
+                    setTimeout(() => {
+
+                        boton.textContent =
+                            'Agregar al carrito';
+
+                        boton.classList.remove('repetido');
+
+                    }, 1200);
+
+
+                } else {
+
+                    carrito.push({
+                        nombre,
+                        precio
+                    });
+
+
+                    actualizarCarritoUI();
+
+
+                    boton.textContent =
+                        '¡Agregado! ✓';
+
+                    boton.classList.add('agregado');
+
+
+                    setTimeout(() => {
+
+                        boton.textContent =
+                            'Agregar al carrito';
+
+                        boton.classList.remove('agregado');
+
+                    }, 1200);
+
+                }
+
+            });
+
+        });
+
+
+
+        function actualizarCarritoUI() {
+
+            contadorSpan.textContent =
+                carrito.length;
+
+            listaCarrito.innerHTML = '';
+
+
+            if (carrito.length === 0) {
+
+                listaCarrito.innerHTML =
+                    '<li>El carrito está vacío.</li>';
+
+                totalSpan.textContent =
+                    'Total: $0';
+
+                return;
+            }
+
+
+            let total = 0;
+
+
+            carrito.forEach((item, index) => {
+
+                total += item.precio;
+
+
+                const li =
+                    document.createElement('li');
+
+                li.className =
+                    'item-carrito';
+
+
+                li.innerHTML = `
+
+                    <span>
+                        ${item.nombre} -
+                        ${formatearPrecio(item.precio)}
+                    </span>
+
+                    <button
+                        onclick="eliminarDelCarrito(${index})">
+                        X
+                    </button>
+
+                `;
+
+
+                listaCarrito.appendChild(li);
+
+            });
+
+
+            totalSpan.textContent =
+                'Total: ' + formatearPrecio(total);
+
+        }
+
+
+
+        window.eliminarDelCarrito = function(index) {
+
+            carrito.splice(index, 1);
+
+            actualizarCarritoUI();
+
+        };
+
+
+
+        btnVerCarrito.addEventListener('click', () => {
+
+            modal.style.display = 'flex';
+
+        });
+
+
+        btnCerrar.addEventListener('click', () => {
+
+            modal.style.display = 'none';
+
+        });
+
+
+
+        btnVaciar.addEventListener('click', () => {
+
+            carrito = [];
+
+            actualizarCarritoUI();
+
+        });
+
+
+        modal.addEventListener('click', (e) => {
+
+            if (e.target === modal) {
+
+                modal.style.display = 'none';
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
