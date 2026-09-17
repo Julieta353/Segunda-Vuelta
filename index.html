@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de segunda mano - Segunda Vuelta</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        header {
+            background: #91d7ec;
+            color: white;
+            text-align: center;
+        }
+
+        .encabezado1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .encabezado1 img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .encabezado1 h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .encabezado2 {
+            display: flex;
+            justify-content: center;
+            background-color: #0088cc;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .encabezado2 a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+
+        .encabezado2 a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .encabezado2 a.activo {
+            color: white;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: #7bcbe0;
+        }
+
+
+        .link-btn {
+            border: none;
+            color: white;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.2s ease;
+        }
+
+        .whatsapp {
+            background: #25d366;
+        }
+
+        .whatsapp:hover {
+            background: #1ebe5d;
+        }
+
+        .mercadopago {
+            background: #00a9e0;
+        }
+
+        .instagram {
+            background: #e1306c;
+        }
+
+        .instagram:hover {
+            background: #c7255c;
+        }
+
+        .info {
+            background: white;
+            max-width: 850px;
+            margin: 30px auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.18);
+            text-align: center;
+        }
+
+        .info h2 {
+            color: #0088cc;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .info p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* TARJETAS */
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.18);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 164px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 10px 11px 11px;
+        }
+
+        .card h2 {
+            font-size: 13px;
+            margin: 0 0 4px;
+        }
+
+
+        @media (max-width: 620px) {
+
+            .encabezado1 {
+                flex-direction: column;
+            }
+
+            .encabezado2 {
+                flex-wrap: wrap;
+            }
+
+            .links {
+                flex-wrap: wrap;
+            }
+
+            .info {
+                width: calc(100% - 30px);
+                padding: 20px;
+                margin: 20px auto;
+            }
+
+            .info h2 {
+                font-size: 21px;
+            }
+
+            .info p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 430px) {
+
+            .productos {
+                width: 100%;
+                max-width: calc(100% - 20px);
+                grid-template-columns: 1fr;
+            }
+
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .link-btn {
+                width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+
+        <div class="encabezado1">
+            <img src="logo.png" alt="Logo Segunda Vuelta">
+            <h1>Segunda Vuelta</h1>
+        </div>
+
+
+        <div class="encabezado2">
+            <a href="inicio.html" class="activo">Inicio</a>
+            <a href="productos.html">Productos</a>
+        </div>
+
+
+        <div class="links">
+
+            <a 
+                class="link-btn whatsapp"
+                href="https://whatsapp.com/channel/0029VbDHGDuDOQIaMed80A35"
+                target="_blank"
+                rel="noopener noreferrer">
+                Mandanos un Whatsapp
+            </a>
+
+            <a 
+                class="link-btn mercadopago"
+                href="#">
+                Link de Mercado Pago
+            </a>
+
+            <a 
+                class="link-btn instagram"
+                href="https://www.instagram.com/segunda_vuelta.cr?stkn=MXZrNWZzYWVpcmZvOQ=="
+                target="_blank"
+                rel="noopener noreferrer">
+                Seguinos en Instagram
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <div class="info">
+
+        <h2>Sobre Segunda Vuelta</h2>
+
+        <p>
+            "Segunda Vuelta" es parte de un trabajo que consiste en la venta de
+            productos de segunda mano —proporcionados por los mismos estudiantes
+            de cada grupo— con el propósito de recaudar dinero para nuestra
+            peregrinación a Cura Brochero el 23 de octubre de 2026 así como para
+            encontrarle nuevos dueños a ropa y libros que hace mucho ya no usamos,
+            de tal forma de que puedan ir a alguien que disfrute y le dé un nuevo
+            inicio a estas mismas.
+        </p>
+
+    </div>
+
+</body>
+
+</html>
