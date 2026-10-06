@@ -1,11 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Segunda Vuelta - Tienda</title>
-
+    <title>Productos - Segunda Vuelta</title>
     <style>
         * {
             box-sizing: border-box;
@@ -59,7 +58,6 @@
             border-radius: 4px;
             font-weight: bold;
             font-size: 14px;
-            transition: background-color 0.2s ease;
             cursor: pointer;
         }
 
@@ -94,36 +92,22 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: background-color 0.2s ease;
         }
 
         .whatsapp {
             background: #25d366;
         }
 
-        .whatsapp:hover {
-            background: #1ebe5d;
-        }
-
         .mercadopago {
             background: #00a9e0;
-        }
-
-        .mercadopago:hover {
-            background: #008fc1;
         }
 
         .instagram {
             background: #e1306c;
         }
 
-        .instagram:hover {
-            background: #c7255c;
-        }
-
-
         .productos {
-            width: 800px;
+            width: 1100px;
             max-width: calc(100% - 30px);
             margin: 21px auto;
             display: grid;
@@ -146,7 +130,7 @@
 
         .card img {
             width: 100%;
-            height: 164px;
+            height: 210px;
             object-fit: cover;
             display: block;
         }
@@ -157,19 +141,19 @@
 
         .card h2 {
             font-size: 13px;
-            margin: 0 0 4px;
+            margin: 0 0 6px;
         }
 
         .card p {
             font-size: 11px;
-            line-height: 1.15;
-            height: 37px;
+            line-height: 1.3;
+            min-height: 30px;
             margin: 0 0 8px;
             color: #444;
         }
 
         .precio {
-            color: #ebb1e6;
+            color: #c080bb;
             font-weight: bold;
             font-size: 13px;
             margin-bottom: 8px;
@@ -185,11 +169,15 @@
             padding: 8px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.2s ease, transform 0.1s ease;
         }
 
-        .carrito:hover {
+        .carrito:hover:not(:disabled) {
             background: #c080bb;
+        }
+
+        .carrito:disabled {
+            background: #aaa;
+            cursor: not-allowed;
         }
 
         .carrito.agregado {
@@ -200,6 +188,7 @@
             background: #ff9800 !important;
         }
 
+        /* CARRITO MODAL */
 
         .modal-overlay {
             position: fixed;
@@ -222,7 +211,7 @@
             max-width: 400px;
             max-height: 80vh;
             overflow-y: auto;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         .modal-content h2 {
@@ -268,36 +257,31 @@
             margin-top: 15px;
         }
 
-        .btn-cerrar {
-            background: #888;
+        .btn-cerrar,
+        .btn-vaciar {
             color: white;
             border: none;
             padding: 8px 12px;
             border-radius: 5px;
             cursor: pointer;
             flex: 1;
+        }
+
+        .btn-cerrar {
+            background: #888;
         }
 
         .btn-vaciar {
             background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            flex: 1;
         }
 
-
-        @media (max-width: 850px) {
+        @media (max-width: 900px) {
             .productos {
-                width: 600px;
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
         @media (max-width: 620px) {
-
             .encabezado1 {
                 flex-direction: column;
             }
@@ -306,405 +290,227 @@
                 flex-wrap: wrap;
             }
 
-            .links {
-                flex-wrap: wrap;
-            }
-
             .productos {
-                width: 400px;
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 430px) {
-
             .productos {
-                width: 100%;
-                max-width: calc(100% - 20px);
                 grid-template-columns: 1fr;
-            }
-
-            .links {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .link-btn {
-                width: auto;
             }
         }
     </style>
 </head>
-
 <body>
 
     <header>
-
-
         <div class="encabezado1">
             <img src="logo.png" alt="Logo Segunda Vuelta">
             <h1>Segunda Vuelta</h1>
         </div>
 
-
         <div class="encabezado2">
-            <a href="inicio.html" class="activo">Inicio</a>
-            <a href="productos.html">Productos</a>
-
+            <a href="inicio.html">Inicio</a>
+            <a href="productos.html" class="activo">Productos</a>
             <a id="btn-ver-carrito" class="btn-carrito-nav">
                 🛒 Carrito (<span id="contador-carrito">0</span>)
             </a>
         </div>
 
-
         <div class="links">
-
-            <a
-                class="link-btn whatsapp"
-                href="https://whatsapp.com/channel/0029VbDHGDuDOQIaMed80A35"
-                target="_blank"
-                rel="noopener noreferrer">
+            <a class="link-btn whatsapp" href="https://whatsapp.com/channel/0029VbDHGDuDOQIaMed80A35" target="_blank" rel="noopener noreferrer">
                 Mandanos un Whatsapp
             </a>
-
-            <a 
-                class="link-btn mercadopago"
-                href="mercadopago.html">
+            <a class="link-btn mercadopago" href="mercadopago.html">
                 Link de Mercado Pago
             </a>
-
-            <a
-                class="link-btn instagram"
-                href="https://www.instagram.com/segunda_vuelta.cr?stkn=MXZrNWZzYWVpcmZvOQ=="
-                target="_blank"
-                rel="noopener noreferrer">
+            <a class="link-btn instagram" href="https://www.instagram.com/segunda_vuelta.cr?stkn=MXZrNWZzYWVpcmZvOQ==" target="_blank" rel="noopener noreferrer">
                 Seguinos en Instagram
             </a>
-
         </div>
-
     </header>
 
-    <main class="productos">
+    <main class="productos" id="productos"></main>
 
-        <article class="card">
-            <img src="https://i.pinimg.com/474x/19/21/51/192151137b4c86bfb19d057f4572dfa7.jpg" alt="Algo">
-
-            <div class="card-content">
-                <h2>Algo</h2>
-                <p>67676767676767676767.</p>
-
-                <div class="precio">$67.500</div>
-
-                <button class="carrito" type="button">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-
-        <article class="card">
-            <img src="https://i.pinimg.com/474x/b0/c6/ef/b0c6ef573809bb05afaa4ee6742cb179.jpg"
-                alt="Conejo de peluche">
-
-            <div class="card-content">
-                <h2>Conejo</h2>
-                <p>Conejonoze.</p>
-
-                <div class="precio">$7.900</div>
-
-                <button class="carrito" type="button">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-
-        <article class="card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhBKcKUjjBsAmtHaYTy1b9j0rqxcCwN6P16R_qq54Jvg&s=10"
-                alt="Perrito de peluche">
-
-            <div class="card-content">
-                <h2>Perri</h2>
-                <p>Perrito si</p>
-
-                <div class="precio">$9.200</div>
-
-                <button class="carrito" type="button">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-
-        <article class="card">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoeoxFj8vK6by9vIw251aXfYc5AOkWSdwEIS9z6HXUmQ&s=10"
-                alt="Gatito de peluche">
-
-            <div class="card-content">
-                <h2>Gatito</h2>
-                <p>Gatito de peluche</p>
-
-                <div class="precio">$8.100</div>
-
-                <button class="carrito" type="button">
-                    Agregar al carrito
-                </button>
-            </div>
-        </article>
-
-    </main>
-
-
-
+    <!-- MODAL CARRITO -->
     <div class="modal-overlay" id="modal-carrito">
-
         <div class="modal-content">
-
             <h2>Tu Carrito de Compras</h2>
-
-            <ul class="lista-carrito" id="lista-carrito">
-                <!-- Se llena con JavaScript -->
-            </ul>
-
+            <ul class="lista-carrito" id="lista-carrito"></ul>
             <div class="total-carrito" id="total-carrito">
                 Total: $0
             </div>
-
             <div class="acciones-modal">
-
-                <button class="btn-vaciar" id="btn-vaciar">
-                    Vaciar
-                </button>
-
-                <button class="btn-cerrar" id="btn-cerrar">
-                    Cerrar
-                </button>
-
+                <button class="btn-vaciar" id="btn-vaciar">Vaciar</button>
+                <button class="btn-cerrar" id="btn-cerrar">Cerrar</button>
             </div>
-
         </div>
-
     </div>
 
-
-
     <script>
+        const productos = [
+            { imagen: "producto_1.jpeg", nombre: "Camisa de rayas blancas", descripcion: "Talle no indicado", precio: 7000, precioTexto: "$7.000" },
+            { imagen: "producto_2.jpeg", nombre: "Camisas blancas de manga largas y cortas", descripcion: "Talle no indicado", precio: 9000, precioTexto: "$9.000 c/u" },
+            { imagen: "producto_3.jpeg", nombre: "Pantalones negros de vestir", descripcion: "Talle no indicado", precio: 8000, precioTexto: "$8.000 c/u" },
+            { imagen: "producto_4.jpeg", nombre: "Camisa de cuadros amarilla, negra y verde", descripcion: "Talle no indicado", precio: 7000, precioTexto: "$7.000" },
+            { imagen: "producto_5.jpeg", nombre: "Falda negra con cierre", descripcion: "Talle no indicado", precio: 6000, precioTexto: "$6.000" },
+            { imagen: "producto_6.jpeg", nombre: "Pantalon negro", descripcion: "Talle no indicado", precio: 7000, precioTexto: "$7.000" },
+            { imagen: "producto_7.jpeg", nombre: "Vestido corto oliva", descripcion: "Talle no indicado", precio: 8000, precioTexto: "$8.000" },
+            { imagen: "producto_8.jpeg", nombre: "Camisa a cuadros", descripcion: "Talle no indicado", precio: 7000, precioTexto: "$7.000" },
+            { imagen: "producto_9.jpeg", nombre: "Remera negra de mangas largas", descripcion: "Talle no indicado", precio: 6000, precioTexto: "$6.000" },
+            { imagen: "producto_10.jpeg", nombre: "Campera con capucha", descripcion: "Talle no indicado", precio: 9000, precioTexto: "$9.000" },
+            { imagen: "producto_11.jpeg", nombre: "Pantalon de vestir", descripcion: "Talle no indicado", precio: 8000, precioTexto: "$8.000" },
+            { imagen: "producto_12.jpeg", nombre: "Jean azul", descripcion: "Talle no indicado", precio: 8000, precioTexto: "\$8.000" },
+            { imagen: "producto_13.jpeg", nombre: "Campera Cristo Rey sin capucha", descripcion: "Talle L", precio: 10000, precioTexto: "\$10.000" },
+            { imagen: "producto_14.jpeg", nombre: "Pantalón Capri", descripcion: "Talle S", precio: 6000, precioTexto: "\$6.000" },
+            { imagen: "producto_15.jpeg", nombre: "Remera manga larga a rayas multicolor", descripcion: "Talle 12", precio: 5000, precioTexto: "\$5.000" },
+            { imagen: "producto_16.jpeg", nombre: "Bermuda blanca", descripcion: "Talle 12", precio: 3000, precioTexto: "\$3.000" },
+            { imagen: "producto_17.jpeg", nombre: "Bermuda azul oscura", descripcion: "Talle 14", precio: 5000, precioTexto: "\$5.000" },
+            { imagen: "producto_18.jpeg", nombre: "Pantalón de gabardina", descripcion: "Talle 40", precio: 8000, precioTexto: "\$8.000" },
+            { imagen: "producto_19.jpeg", nombre: "Remera manga larga azul claro", descripcion: "Talle 12", precio: 5000, precioTexto: "\$5.000" },
+            { imagen: "producto_20.jpeg", nombre: "Remera manga larga celeste", descripcion: "Talle 10", precio: 5000, precioTexto: "\$5.000" },
+            { imagen: "producto_21.jpeg", nombre: "Pantalón Capri negro", descripcion: "Talle 42", precio: 7000, precioTexto: "\$7.000" },
+            { imagen: "producto_22.jpeg", nombre: "Pantalón de Jean", descripcion: "Talle 40", precio: 8000, precioTexto: "\$8.000" },
+            { imagen: "producto_23.jpeg", nombre: "Bermuda", descripcion: "Talle 40", precio: 6000, precioTexto: "\$6.000" },
+            { imagen: "producto_24.jpeg", nombre: "Remera manga larga roja", descripcion: "Talle S", precio: 6000, precioTexto: "\$6.000" },
+            { imagen: "producto_25.png", nombre: "Vestido Rosa con flores", descripcion: "Talle S", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_26.png", nombre: "Solera", descripcion: "Talle 36", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_27.png", nombre: "Sweater rojo", descripcion: "Talle S/M", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_28.png", nombre: "Buzo gris estampado", descripcion: "Talle S", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_29.png", nombre: "Sweater verde agua", descripcion: "Talle M/L", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_30.png", nombre: "Sweater Fucsia", descripcion: "Talle S", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_31.png", nombre: "Camisa Negra", descripcion: "Talle M", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_32.png", nombre: "Remera manga larga verde", descripcion: "Talle S", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_33.png", nombre: "Pollera de jean con bordado de flores", descripcion: "Talle 30", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_34.png", nombre: "Pollera negra tableada", descripcion: "Talle 2", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_35.png", nombre: "Short de jean", descripcion: "Talle 30", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_36.png", nombre: "Short de jean", descripcion: "Talle 42", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_37.png", nombre: "Short de jean", descripcion: "Talle 30", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_38.png", nombre: "Pantalon negro", descripcion: "Talle 40", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_39.jpeg", nombre: "Calza gris con flor bordada", descripcion: "Talle XL", precio: 6500, precioTexto: "\$6.500" },
+            { imagen: "producto_40.jpeg", nombre: "Short de pijama con estampado de limones", descripcion: "Talle L", precio: 7000, precioTexto: "\$7.000" },
+            { imagen: "producto_41.jpeg", nombre: "Short de pijama a lunares", descripcion: "Talle XL", precio: 7000, precioTexto: "\$7.000" },
+            { imagen: "producto_42.jpeg", nombre: "Crop top/blusa corta “The best is yet to come”", descripcion: "Talle XL", precio: 9000, precioTexto: "\$9.000" },
+            { imagen: "producto_43.jpeg", nombre: "Gorro de lana", descripcion: "Unitalle", precio: 5000, precioTexto: "\$5.000" },
+            { imagen: "producto_44.jpeg", nombre: "Remeras térmicas manga larga blancas", descripcion: "Talle L", precio: 7500, precioTexto: "\$7.500 c/u o \$13.500 las dos" },
+            { imagen: "producto_45.jpeg", nombre: "Sweater verde de lana", descripcion: "Unitalle", precio: 9000, precioTexto: "\$9.000" },
+            { imagen: "producto_46.jpeg", nombre: "Blusa de hombros descubiertos", descripcion: "Talle L", precio: 6000, precioTexto: "\$6.000" },
+            { imagen: "producto_47.jpeg", nombre: "Blusa negra de manga larga con bordado de flores", descripcion: "Talle M/L", precio: 7700, precioTexto: "\$7.700" },
+            { imagen: "producto_48.jpeg", nombre: "Buzo colorblock en V", descripcion: "Talle L", precio: 8000, precioTexto: "\$8.000" },
+            { imagen: "producto_49.jpeg", nombre: "Buzo negro", descripcion: "Talle XL", precio: 10500, precioTexto: "\$10.500" },
+            { imagen: "producto_50.jpeg", font: "Pijama rosa de peluche", descripcion: "Talle L", precio: 8000, precioTexto: "\$8.000 por separado o \$15.000 juntos" },
+            { imagen: "producto_51.jpeg", nombre: "Campera negra de cuero", descripcion: "Talle XL", precio: 13500, precioTexto: "\$13.500" },
+            { imagen: "producto_52.jpeg", nombre: "Campera negra", descripcion: "Talle XL - RESERVADA POR CANDE URDININEA", precio: 8000, precioTexto: "\$8.000" },
+            { imagen: "producto_53.jpeg", nombre: "Cardigan amarillo", descripcion: "Talle L", precio: 6700, precioTexto: "\$6.700" },
+            { imagen: "producto_54.jpeg", nombre: "Still With You / Still With Me, Lily del Pilar", descripcion: "Editorial Planeta", precio: 6500, precioTexto: "\$6.500 c/u o \$12.000 juntos" },
+            { imagen: "producto_55.jpeg", nombre: "Cuento de Navidad, Charles Dickens", descripcion: "De bolsillo, editorial Gradifco", precio: 6000, precioTexto: "\$6.000" },
+            { imagen: "producto_56.jpeg", nombre: "Fairy Tail Vol. 5 y 6, Hiro Mashima", descripcion: "Editorial Panini", precio: 5000, precioTexto: "\$5.000 c/u o \$8.500 juntos" },
+            { imagen: "producto_57.jpeg", nombre: "Juan Salvador Gaviota, Richard Bach", descripcion: "Con fotos de Russel Munson, editorial Pomaire", precio: 9500, precioTexto: "\$9.500" }
+        ];
 
-        let carrito = [];
+        const contenedor = document.getElementById("productos");
 
+        // RENDERIZADO DE PRODUCTOS CON ETIQUETA <img src="...">
+        productos.forEach((producto) => {
+            const card = document.createElement("article");
+            card.className = "card";
 
-        const botonesAgregar = document.querySelectorAll('.carrito');
-        const contadorSpan = document.getElementById('contador-carrito');
-        const modal = document.getElementById('modal-carrito');
-        const btnVerCarrito = document.getElementById('btn-ver-carrito');
-        const btnCerrar = document.getElementById('btn-cerrar');
-        const btnVaciar = document.getElementById('btn-vaciar');
-        const listaCarrito = document.getElementById('lista-carrito');
-        const totalSpan = document.getElementById('total-carrito');
-
-
-
-        function obtenerPrecioNumero(precioTexto) {
-
-            return parseFloat(
-                precioTexto
-                    .replace('$', '')
-                    .replace('.', '')
-                    .trim()
-            );
-
-        }
-
-
-
-        function formatearPrecio(numero) {
-
-            return '$' + numero.toLocaleString('es-AR');
-
-        }
-
-
-
-        botonesAgregar.forEach((boton) => {
-
-            boton.addEventListener('click', (e) => {
-
-                const card = e.target.closest('.card');
-
-                const nombre = card.querySelector('h2').textContent;
-
-                const precioTexto =
-                    card.querySelector('.precio').textContent;
-
-                const precio =
-                    obtenerPrecioNumero(precioTexto);
-
-
-                const existe =
-                    carrito.some(item => item.nombre === nombre);
-
-
-                if (existe) {
-
-                    boton.textContent =
-                        '¡Ya en el carrito!';
-
-                    boton.classList.add('repetido');
-
-
-                    setTimeout(() => {
-
-                        boton.textContent =
-                            'Agregar al carrito';
-
-                        boton.classList.remove('repetido');
-
-                    }, 1200);
-
-
-                } else {
-
-                    carrito.push({
-                        nombre,
-                        precio
-                    });
-
-
-                    actualizarCarritoUI();
-
-
-                    boton.textContent =
-                        '¡Agregado! ✓';
-
-                    boton.classList.add('agregado');
-
-
-                    setTimeout(() => {
-
-                        boton.textContent =
-                            'Agregar al carrito';
-
-                        boton.classList.remove('agregado');
-
-                    }, 1200);
-
-                }
-
-            });
-
+            card.innerHTML = `
+                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <div class="card-content">
+                    <h2>${producto.nombre}</h2>
+                    <p>${producto.descripcion}</p>
+                    <div class="precio">${producto.precioTexto}</div>
+                    ${
+                        producto.precio > 0
+                        ? `<button class="carrito" type="button" data-precio="\${producto.precio}">Agregar al carrito</button>`
+                        : `<button class="carrito" type="button" disabled>Precio no indicado</button>`
+                    }
+                </div>
+            `;
+            contenedor.appendChild(card);
         });
 
+        /* LÓGICA DEL CARRITO */
+        let carrito = [];
+        const contadorSpan = document.getElementById("contador-carrito");
+        const modal = document.getElementById("modal-carrito");
+        const btnVerCarrito = document.getElementById("btn-ver-carrito");
+        const btnCerrar = document.getElementById("btn-cerrar");
+        const btnVaciar = document.getElementById("btn-vaciar");
+        const listaCarrito = document.getElementById("lista-carrito");
+        const totalSpan = document.getElementById("total-carrito");
 
+        function formatearPrecio(numero) {
+            return "\$" + numero.toLocaleString("es-AR");
+        }
+
+        // Delegación de eventos para los botones del carrito
+        contenedor.addEventListener("click", (e) => {
+            if (e.target.classList.contains("carrito") && !e.target.disabled) {
+                const boton = e.target;
+                const card = boton.closest(".card");
+                const nombre = card.querySelector("h2").textContent;
+                const precio = Number(boton.dataset.precio);
+
+                const existe = carrito.some(item => item.nombre === nombre);
+
+                if (existe) {
+                    boton.textContent = "¡Ya en el carrito!";
+                    boton.classList.add("repetido");
+                    setTimeout(() => {
+                        boton.textContent = "Agregar al carrito";
+                        boton.classList.remove("repetido");
+                    }, 1200);
+                } else {
+                    carrito.push({ nombre, precio });
+                    actualizarCarritoUI();
+
+                    boton.textContent = "¡Agregado! ✓";
+                    boton.classList.add("agregado");
+                    setTimeout(() => {
+                        boton.textContent = "Agregar al carrito";
+                        boton.classList.remove("agregado");
+                    }, 1200);
+                }
+            }
+        });
 
         function actualizarCarritoUI() {
-
-            contadorSpan.textContent =
-                carrito.length;
-
-            listaCarrito.innerHTML = '';
-
+            contadorSpan.textContent = carrito.length;
+            listaCarrito.innerHTML = "";
 
             if (carrito.length === 0) {
-
-                listaCarrito.innerHTML =
-                    '<li>El carrito está vacío.</li>';
-
-                totalSpan.textContent =
-                    'Total: $0';
-
+                listaCarrito.innerHTML = "<li>El carrito está vacío.</li>";
+                totalSpan.textContent = "Total: \$0";
                 return;
             }
 
-
             let total = 0;
-
-
             carrito.forEach((item, index) => {
-
                 total += item.precio;
-
-
-                const li =
-                    document.createElement('li');
-
-                li.className =
-                    'item-carrito';
-
-
+                const li = document.createElement("li");
+                li.className = "item-carrito";
                 li.innerHTML = `
-
-                    <span>
-                        ${item.nombre} -
-                        ${formatearPrecio(item.precio)}
-                    </span>
-
-                    <button
-                        onclick="eliminarDelCarrito(${index})">
-                        X
-                    </button>
-
+                    <span>${item.nombre} - ${formatearPrecio(item.precio)}</span>
+                    <button onclick="eliminarDelCarrito(${index})">X</button>
                 `;
-
-
                 listaCarrito.appendChild(li);
-
             });
 
-
-            totalSpan.textContent =
-                'Total: ' + formatearPrecio(total);
-
+            totalSpan.textContent = "Total: " + formatearPrecio(total);
         }
 
-
-
         window.eliminarDelCarrito = function(index) {
-
             carrito.splice(index, 1);
-
             actualizarCarritoUI();
-
         };
 
-
-
-        btnVerCarrito.addEventListener('click', () => {
-
-            modal.style.display = 'flex';
-
-        });
-
-
-        btnCerrar.addEventListener('click', () => {
-
-            modal.style.display = 'none';
-
-        });
-
-
-
-        btnVaciar.addEventListener('click', () => {
-
-            carrito = [];
-
-            actualizarCarritoUI();
-
-        });
-
-
-        modal.addEventListener('click', (e) => {
-
-            if (e.target === modal) {
-
-                modal.style.display = 'none';
-
-            }
-
-        });
-
+        btnVerCarrito.addEventListener("click", () => { modal.style.display = "flex"; });
+        btnCerrar.addEventListener("click", () => { modal.style.display = "none"; });
+        btnVaciar.addEventListener("click", () => { carrito = []; actualizarCarritoUI(); });
+        modal.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
     </script>
-
 </body>
-
 </html>
