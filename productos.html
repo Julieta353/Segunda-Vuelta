@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -157,6 +156,7 @@
             font-weight: bold;
             font-size: 13px;
             margin-bottom: 8px;
+            min-height: 18px;
         }
 
         .carrito {
@@ -171,13 +171,8 @@
             cursor: pointer;
         }
 
-        .carrito:hover:not(:disabled) {
+        .carrito:hover {
             background: #c080bb;
-        }
-
-        .carrito:disabled {
-            background: #aaa;
-            cursor: not-allowed;
         }
 
         .carrito.agregado {
@@ -188,7 +183,7 @@
             background: #ff9800 !important;
         }
 
-        /* CARRITO MODAL */
+        /* MODAL CARRITO */
 
         .modal-overlay {
             position: fixed;
@@ -339,7 +334,7 @@
             <h2>Tu Carrito de Compras</h2>
             <ul class="lista-carrito" id="lista-carrito"></ul>
             <div class="total-carrito" id="total-carrito">
-                Total: $0
+                Total: \$0
             </div>
             <div class="acciones-modal">
                 <button class="btn-vaciar" id="btn-vaciar">Vaciar</button>
@@ -350,17 +345,17 @@
 
     <script>
         const productos = [
-            { imagen: "producto_1.jpeg", nombre: "Camisa de rayas blancas", descripcion: "Talle no indicado", precio: 7000, precioTexto: "$7.000" },
-            { imagen: "producto_2.jpeg", nombre: "Camisas blancas de manga largas y cortas", descripcion: "Talle no indicado", precio: 9000, precioTexto: "$9.000 c/u" },
-            { imagen: "producto_3.jpeg", nombre: "Pantalones negros de vestir", descripcion: "Talle no indicado", precio: 8000, precioTexto: "$8.000 c/u" },
-            { imagen: "producto_4.jpeg", nombre: "Camisa de cuadros amarilla, negra y verde", descripcion: "Talle no indicado", precio: 7000, precioTexto: "$7.000" },
-            { imagen: "producto_5.jpeg", nombre: "Falda negra con cierre", descripcion: "Talle no indicado", precio: 6000, precioTexto: "$6.000" },
-            { imagen: "producto_6.jpeg", nombre: "Pantalon negro", descripcion: "Talle no indicado", precio: 7000, precioTexto: "$7.000" },
-            { imagen: "producto_7.jpeg", nombre: "Vestido corto oliva", descripcion: "Talle no indicado", precio: 8000, precioTexto: "$8.000" },
-            { imagen: "producto_8.jpeg", nombre: "Camisa a cuadros", descripcion: "Talle no indicado", precio: 7000, precioTexto: "$7.000" },
-            { imagen: "producto_9.jpeg", nombre: "Remera negra de mangas largas", descripcion: "Talle no indicado", precio: 6000, precioTexto: "$6.000" },
-            { imagen: "producto_10.jpeg", nombre: "Campera con capucha", descripcion: "Talle no indicado", precio: 9000, precioTexto: "$9.000" },
-            { imagen: "producto_11.jpeg", nombre: "Pantalon de vestir", descripcion: "Talle no indicado", precio: 8000, precioTexto: "$8.000" },
+            { imagen: "producto_1.jpeg", nombre: "Camisa de rayas blancas", descripcion: "Talle no indicado", precio: 7000, precioTexto: "\$7.000" },
+            { imagen: "producto_2.jpeg", nombre: "Camisas blancas de manga largas y cortas", descripcion: "Talle no indicado", precio: 9000, precioTexto: "\$9.000 c/u" },
+            { imagen: "producto_3.jpeg", nombre: "Pantalones negros de vestir", descripcion: "Talle no indicado", precio: 8000, precioTexto: "\$8.000 c/u" },
+            { imagen: "producto_4.jpeg", nombre: "Camisa de cuadros amarilla, negra y verde", descripcion: "Talle no indicado", precio: 7000, precioTexto: "\$7.000" },
+            { imagen: "producto_5.jpeg", nombre: "Falda negra con cierre", descripcion: "Talle no indicado", precio: 6000, precioTexto: "\$6.000" },
+            { imagen: "producto_6.jpeg", nombre: "Pantalon negro", descripcion: "Talle no indicado", precio: 7000, precioTexto: "\$7.000" },
+            { imagen: "producto_7.jpeg", nombre: "Vestido corto oliva", descripcion: "Talle no indicado", precio: 8000, precioTexto: "\$8.000" },
+            { imagen: "producto_8.jpeg", nombre: "Camisa a cuadros", descripcion: "Talle no indicado", precio: 7000, precioTexto: "\$7.000" },
+            { imagen: "producto_9.jpeg", nombre: "Remera negra de mangas largas", descripcion: "Talle no indicado", precio: 6000, precioTexto: "\$6.000" },
+            { imagen: "producto_10.jpeg", nombre: "Campera con capucha", descripcion: "Talle no indicado", precio: 9000, precioTexto: "\$9.000" },
+            { imagen: "producto_11.jpeg", nombre: "Pantalon de vestir", descripcion: "Talle no indicado", precio: 8000, precioTexto: "\$8.000" },
             { imagen: "producto_12.jpeg", nombre: "Jean azul", descripcion: "Talle no indicado", precio: 8000, precioTexto: "\$8.000" },
             { imagen: "producto_13.jpeg", nombre: "Campera Cristo Rey sin capucha", descripcion: "Talle L", precio: 10000, precioTexto: "\$10.000" },
             { imagen: "producto_14.jpeg", nombre: "Pantalón Capri", descripcion: "Talle S", precio: 6000, precioTexto: "\$6.000" },
@@ -374,20 +369,20 @@
             { imagen: "producto_22.jpeg", nombre: "Pantalón de Jean", descripcion: "Talle 40", precio: 8000, precioTexto: "\$8.000" },
             { imagen: "producto_23.jpeg", nombre: "Bermuda", descripcion: "Talle 40", precio: 6000, precioTexto: "\$6.000" },
             { imagen: "producto_24.jpeg", nombre: "Remera manga larga roja", descripcion: "Talle S", precio: 6000, precioTexto: "\$6.000" },
-            { imagen: "producto_25.png", nombre: "Vestido Rosa con flores", descripcion: "Talle S", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_26.png", nombre: "Solera", descripcion: "Talle 36", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_27.png", nombre: "Sweater rojo", descripcion: "Talle S/M", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_28.png", nombre: "Buzo gris estampado", descripcion: "Talle S", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_29.png", nombre: "Sweater verde agua", descripcion: "Talle M/L", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_30.png", nombre: "Sweater Fucsia", descripcion: "Talle S", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_31.png", nombre: "Camisa Negra", descripcion: "Talle M", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_32.png", nombre: "Remera manga larga verde", descripcion: "Talle S", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_33.png", nombre: "Pollera de jean con bordado de flores", descripcion: "Talle 30", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_34.png", nombre: "Pollera negra tableada", descripcion: "Talle 2", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_35.png", nombre: "Short de jean", descripcion: "Talle 30", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_36.png", nombre: "Short de jean", descripcion: "Talle 42", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_37.png", nombre: "Short de jean", descripcion: "Talle 30", precio: 0, precioTexto: "Precio no indicado" },
-            { imagen: "producto_38.png", nombre: "Pantalon negro", descripcion: "Talle 40", precio: 0, precioTexto: "Precio no indicado" },
+            { imagen: "producto_25.png", nombre: "Vestido Rosa con flores", descripcion: "Talle S", precio: 0, precioTexto: "" },
+            { imagen: "producto_26.png", nombre: "Solera", descripcion: "Talle 36", precio: 0, precioTexto: "" },
+            { imagen: "producto_27.png", nombre: "Sweater rojo", descripcion: "Talle S/M", precio: 0, precioTexto: "" },
+            { imagen: "producto_28.png", nombre: "Buzo gris estampado", descripcion: "Talle S", precio: 0, precioTexto: "" },
+            { imagen: "producto_29.png", nombre: "Sweater verde agua", descripcion: "Talle M/L", precio: 0, precioTexto: "" },
+            { imagen: "producto_30.png", nombre: "Sweater Fucsia", descripcion: "Talle S", precio: 0, precioTexto: "" },
+            { imagen: "producto_31.png", nombre: "Camisa Negra", descripcion: "Talle M", precio: 0, precioTexto: "" },
+            { imagen: "producto_32.png", nombre: "Remera manga larga verde", descripcion: "Talle S", precio: 0, precioTexto: "" },
+            { imagen: "producto_33.png", nombre: "Pollera de jean con bordado de flores", descripcion: "Talle 30", precio: 0, precioTexto: "" },
+            { imagen: "producto_34.png", nombre: "Pollera negra tableada", descripcion: "Talle 2", precio: 0, precioTexto: "" },
+            { imagen: "producto_35.png", nombre: "Short de jean", descripcion: "Talle -", precio: 0, precioTexto: "" },
+            { imagen: "producto_36.png", nombre: "Short de jean", descripcion: "Talle 42", precio: 0, precioTexto: "" },
+            { imagen: "producto_37.png", nombre: "Short de jean", descripcion: "Talle 30", precio: 0, precioTexto: "" },
+            { imagen: "producto_38.png", nombre: "Pantalon negro", descripcion: "Talle 40", precio: 0, precioTexto: "" },
             { imagen: "producto_39.jpeg", nombre: "Calza gris con flor bordada", descripcion: "Talle XL", precio: 6500, precioTexto: "\$6.500" },
             { imagen: "producto_40.jpeg", nombre: "Short de pijama con estampado de limones", descripcion: "Talle L", precio: 7000, precioTexto: "\$7.000" },
             { imagen: "producto_41.jpeg", nombre: "Short de pijama a lunares", descripcion: "Talle XL", precio: 7000, precioTexto: "\$7.000" },
@@ -399,7 +394,7 @@
             { imagen: "producto_47.jpeg", nombre: "Blusa negra de manga larga con bordado de flores", descripcion: "Talle M/L", precio: 7700, precioTexto: "\$7.700" },
             { imagen: "producto_48.jpeg", nombre: "Buzo colorblock en V", descripcion: "Talle L", precio: 8000, precioTexto: "\$8.000" },
             { imagen: "producto_49.jpeg", nombre: "Buzo negro", descripcion: "Talle XL", precio: 10500, precioTexto: "\$10.500" },
-            { imagen: "producto_50.jpeg", font: "Pijama rosa de peluche", descripcion: "Talle L", precio: 8000, precioTexto: "\$8.000 por separado o \$15.000 juntos" },
+            { imagen: "producto_50.jpeg", nombre: "Pijama rosa de peluche", descripcion: "Talle L", precio: 8000, precioTexto: "\$8.000 por separado o \$15.000 juntos" },
             { imagen: "producto_51.jpeg", nombre: "Campera negra de cuero", descripcion: "Talle XL", precio: 13500, precioTexto: "\$13.500" },
             { imagen: "producto_52.jpeg", nombre: "Campera negra", descripcion: "Talle XL - RESERVADA POR CANDE URDININEA", precio: 8000, precioTexto: "\$8.000" },
             { imagen: "producto_53.jpeg", nombre: "Cardigan amarillo", descripcion: "Talle L", precio: 6700, precioTexto: "\$6.700" },
@@ -411,7 +406,7 @@
 
         const contenedor = document.getElementById("productos");
 
-        // RENDERIZADO DE PRODUCTOS CON ETIQUETA <img src="...">
+        // RENDERIZADO DE PRODUCTOS
         productos.forEach((producto) => {
             const card = document.createElement("article");
             card.className = "card";
@@ -422,11 +417,7 @@
                     <h2>${producto.nombre}</h2>
                     <p>${producto.descripcion}</p>
                     <div class="precio">${producto.precioTexto}</div>
-                    ${
-                        producto.precio > 0
-                        ? `<button class="carrito" type="button" data-precio="\${producto.precio}">Agregar al carrito</button>`
-                        : `<button class="carrito" type="button" disabled>Precio no indicado</button>`
-                    }
+                    <button class="carrito" type="button" data-precio="${producto.precio}">Agregar al carrito</button>
                 </div>
             `;
             contenedor.appendChild(card);
@@ -448,7 +439,7 @@
 
         // Delegación de eventos para los botones del carrito
         contenedor.addEventListener("click", (e) => {
-            if (e.target.classList.contains("carrito") && !e.target.disabled) {
+            if (e.target.classList.contains("carrito")) {
                 const boton = e.target;
                 const card = boton.closest(".card");
                 const nombre = card.querySelector("h2").textContent;
