@@ -183,7 +183,6 @@
             background: #ff9800 !important;
         }
 
-        /* MODAL CARRITO */
 
         .modal-overlay {
             position: fixed;
@@ -406,7 +405,6 @@
 
         const contenedor = document.getElementById("productos");
 
-        // RENDERIZADO DE PRODUCTOS
         productos.forEach((producto) => {
             const card = document.createElement("article");
             card.className = "card";
@@ -423,7 +421,6 @@
             contenedor.appendChild(card);
         });
 
-        /* LÓGICA DEL CARRITO */
         let carrito = [];
         const contadorSpan = document.getElementById("contador-carrito");
         const modal = document.getElementById("modal-carrito");
@@ -437,7 +434,7 @@
             return "\$" + numero.toLocaleString("es-AR");
         }
 
-        // Delegación de eventos para los botones del carrito
+
         contenedor.addEventListener("click", (e) => {
             if (e.target.classList.contains("carrito")) {
                 const boton = e.target;
